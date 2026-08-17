@@ -1,0 +1,3740 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Hafid ❤️ Latifah</title>
+
+<style>
+
+/* =====================================================
+   DASAR
+===================================================== */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    min-height: 100vh;
+    font-family:
+        "Segoe Script",
+        "Brush Script MT",
+        cursive;
+
+    background:
+        linear-gradient(
+            135deg,
+            #061a40,
+            #0b4f9c,
+            #4facfe
+        );
+
+    color: white;
+    overflow-x: hidden;
+}
+
+
+/* =====================================================
+   LAYAR PIN
+===================================================== */
+
+#lockScreen {
+    position: fixed;
+    inset: 0;
+    z-index: 10000;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    text-align: center;
+
+    background:
+        linear-gradient(
+            135deg,
+            #061a40,
+            #0b4f9c,
+            #4facfe
+        );
+
+    transition:
+        opacity 0.8s ease,
+        visibility 0.8s ease;
+}
+
+#lockScreen.hide {
+    opacity: 0;
+    visibility: hidden;
+}
+
+.lock-container {
+    width: 100%;
+    max-width: 400px;
+    padding: 25px;
+
+    animation:
+        lockFloat 3s ease-in-out infinite;
+}
+
+@keyframes lockFloat {
+    0%,100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-6px);
+    }
+}
+
+.lock-icon {
+    font-size: 65px;
+    margin-bottom: 15px;
+
+    filter:
+        drop-shadow(0 0 8px white)
+        drop-shadow(0 0 20px #4facfe);
+
+    animation:
+        heartbeat 1.5s infinite;
+}
+
+.lock-date {
+    font-family: Arial, sans-serif;
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 8px;
+}
+
+.lock-title {
+    font-size: 22px;
+    margin-bottom: 20px;
+}
+
+
+/* =====================================================
+   PIN DOT
+===================================================== */
+
+.pin-dots {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    margin-bottom: 30px;
+    min-height: 18px;
+}
+
+.pin-dot {
+    width: 13px;
+    height: 13px;
+
+    border-radius: 50%;
+
+    border:
+        2px solid white;
+
+    transition: 0.2s;
+}
+
+.pin-dot.active {
+    background: white;
+
+    transform: scale(1.2);
+
+    box-shadow:
+        0 0 8px white,
+        0 0 18px #4facfe;
+}
+
+
+/* =====================================================
+   KEYPAD
+===================================================== */
+
+.keypad {
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, 75px);
+
+    justify-content: center;
+
+    gap: 14px;
+}
+
+.key {
+    width: 75px;
+    height: 75px;
+
+    border-radius: 50%;
+
+    border:
+        1px solid
+        rgba(255,255,255,0.35);
+
+    background:
+        rgba(255,255,255,0.18);
+
+    color: white;
+
+    font-family: Arial, sans-serif;
+    font-size: 28px;
+
+    cursor: pointer;
+
+    backdrop-filter:
+        blur(10px);
+
+    transition: 0.2s;
+}
+
+.key:hover {
+    background:
+        rgba(255,255,255,0.30);
+
+    box-shadow:
+        0 0 20px
+        rgba(255,255,255,0.25);
+}
+
+.key:active,
+.key.pressed {
+    transform: scale(0.82);
+
+    background:
+        rgba(255,255,255,0.45);
+
+    box-shadow:
+        0 0 15px white,
+        0 0 30px #4facfe;
+}
+
+.key.special {
+    font-size: 22px;
+}
+
+
+/* =====================================================
+   PIN SALAH
+===================================================== */
+
+#pinError {
+    height: 25px;
+
+    margin-top: 15px;
+
+    font-family: Arial, sans-serif;
+
+    font-size: 15px;
+    font-weight: bold;
+
+    opacity: 0;
+
+    transition: 0.3s;
+}
+
+#pinError.show {
+    opacity: 1;
+}
+
+.pin-wrong {
+    animation:
+        pinWrong
+        0.45s
+        ease;
+}
+
+@keyframes pinWrong {
+
+    0%,100% {
+        transform: translateX(0);
+    }
+
+    20% {
+        transform: translateX(-15px);
+    }
+
+    40% {
+        transform: translateX(15px);
+    }
+
+    60% {
+        transform: translateX(-12px);
+    }
+
+    80% {
+        transform: translateX(12px);
+    }
+}
+
+
+/* =====================================================
+   CLUE PIN
+===================================================== */
+
+#pinClue {
+    min-height: 65px;
+
+    margin-top: 12px;
+
+    padding: 10px;
+
+    border-radius: 15px;
+
+    background:
+        rgba(255,255,255,0.12);
+
+    border:
+        1px solid
+        rgba(255,255,255,0.25);
+
+    font-family: Arial, sans-serif;
+
+    font-size: 14px;
+
+    line-height: 1.5;
+
+    opacity: 0;
+
+    transform:
+        translateY(10px);
+
+    transition:
+        opacity 0.5s ease,
+        transform 0.5s ease;
+}
+
+#pinClue.show {
+    opacity: 1;
+
+    transform:
+        translateY(0);
+}
+
+.clue-title {
+    font-weight: bold;
+
+    font-size: 16px;
+
+    margin-bottom: 4px;
+}
+
+.clue-text {
+    opacity: 0.9;
+}
+
+
+/* =====================================================
+   PIN BERHASIL
+===================================================== */
+
+.pin-success {
+    animation:
+        pinSuccess
+        0.7s
+        ease;
+}
+
+@keyframes pinSuccess {
+
+    0% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.35);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+
+/* =====================================================
+   INTRO
+===================================================== */
+
+#intro {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    text-align: center;
+
+    background:
+        linear-gradient(
+            135deg,
+            #061a40,
+            #0b4f9c,
+            #4facfe
+        );
+
+    opacity: 0;
+    visibility: hidden;
+
+    transition:
+        opacity 1s ease;
+}
+
+#intro.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+#intro.hide {
+    opacity: 0;
+    visibility: hidden;
+}
+
+.intro-content {
+    padding: 30px;
+}
+
+.intro-heart {
+    font-size: 100px;
+
+    animation:
+        heartbeat 1.2s infinite;
+}
+
+.intro-title {
+    font-size: 45px;
+    margin: 20px 0 10px;
+}
+
+.intro-text {
+    font-size: 21px;
+    margin-bottom: 30px;
+    opacity: 0.9;
+}
+
+.start-button {
+    padding:
+        15px 35px;
+
+    border: none;
+    border-radius: 40px;
+
+    background: white;
+
+    color: #0878d1;
+
+    font-size: 18px;
+
+    font-family:
+        "Segoe Script",
+        "Brush Script MT",
+        cursive;
+
+    font-weight: bold;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 10px 30px
+        rgba(0,0,0,0.25);
+
+    transition: 0.3s;
+}
+
+.start-button:hover {
+    transform: scale(1.1);
+}
+
+
+/* =====================================================
+   QUIZ MATEMATIKA
+===================================================== */
+
+#gameScreen {
+    position: fixed;
+    inset: 0;
+
+    z-index: 9998;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background:
+        linear-gradient(
+            135deg,
+            #061a40,
+            #0b4f9c,
+            #4facfe
+        );
+
+    opacity: 0;
+    visibility: hidden;
+
+    transition:
+        opacity 1s ease;
+}
+
+#gameScreen.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+.game-box {
+    width: 90%;
+    max-width: 500px;
+
+    text-align: center;
+
+    padding:
+        35px 25px;
+
+    border-radius: 30px;
+
+    background:
+        rgba(255,255,255,0.15);
+
+    backdrop-filter:
+        blur(15px);
+
+    box-shadow:
+        0 15px 50px
+        rgba(0,0,0,0.35);
+}
+
+.game-title {
+    font-size: 35px;
+    margin-bottom: 15px;
+}
+
+.game-description {
+    font-size: 18px;
+    margin-bottom: 25px;
+}
+
+.question {
+    font-family: Arial, sans-serif;
+
+    font-size: 34px;
+    font-weight: bold;
+
+    margin:
+        25px 0;
+}
+
+.answer-input {
+    width: 150px;
+
+    padding:
+        13px;
+
+    border: none;
+
+    border-radius: 15px;
+
+    outline: none;
+
+    text-align: center;
+
+    font-size: 22px;
+
+    font-family: Arial, sans-serif;
+}
+
+.answer-button {
+    margin-top: 15px;
+
+    padding:
+        13px 28px;
+
+    border: none;
+
+    border-radius: 30px;
+
+    background: white;
+
+    color: #0878d1;
+
+    font-size: 17px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+}
+
+.quiz-message {
+    min-height: 30px;
+
+    margin-top: 15px;
+
+    font-family: Arial, sans-serif;
+
+    font-weight: bold;
+}
+
+.quiz-progress {
+    font-family: Arial, sans-serif;
+
+    font-size: 15px;
+
+    opacity: 0.85;
+}
+
+.game-button {
+    margin-top: 25px;
+
+    padding:
+        14px 28px;
+
+    border: none;
+
+    border-radius: 30px;
+
+    background: white;
+
+    color: #0878d1;
+
+    font-size: 17px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+}
+
+
+/* =====================================================
+   ALBUM FOTO
+===================================================== */
+
+#photoShow {
+    position: fixed;
+    inset: 0;
+
+    z-index: 9997;
+
+    background:
+        radial-gradient(
+            circle at center,
+            #1264b5,
+            #03132e
+        );
+
+    overflow-x: auto;
+    overflow-y: hidden;
+
+    opacity: 0;
+    visibility: hidden;
+
+    transition:
+        opacity 1s ease;
+}
+
+#photoShow.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+.photo-show-content {
+    width: max-content;
+    min-width: 100%;
+    min-height: 100vh;
+
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: center;
+
+    padding:
+        40px 40px 70px;
+}
+
+.photo-show-title {
+    text-align: center;
+
+    font-size: 35px;
+
+    margin-bottom: 30px;
+}
+
+.photo-list {
+    display: flex;
+
+    flex-direction: row;
+
+    align-items: center;
+
+    gap: 25px;
+
+    width: max-content;
+
+    padding:
+        20px 40px;
+}
+
+
+/* =====================================================
+   FOTO ALBUM
+===================================================== */
+
+.memory-photo {
+    flex:
+        0 0 300px;
+
+    width: 300px;
+
+    padding: 8px;
+
+    border-radius: 25px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #123c66,
+            #17639a,
+            #0b3155
+        );
+
+    box-shadow:
+        0 8px 25px
+        rgba(0,0,0,0.45);
+
+    opacity: 0;
+
+    transform:
+        translateX(60px)
+        scale(0.85);
+
+    animation:
+        memoryAppear
+        1.2s
+        ease
+        forwards;
+}
+
+.memory-photo img {
+    display: block;
+
+    width: 100%;
+    height: 360px;
+
+    object-fit: cover;
+
+    border-radius: 18px;
+
+    border:
+        2px solid
+        rgba(255,255,255,0.7);
+}
+
+.memory-caption {
+    margin-top: 12px;
+
+    font-size: 19px;
+
+    text-align: center;
+
+    color: white;
+}
+
+@keyframes memoryAppear {
+
+    0% {
+        opacity: 0;
+
+        transform:
+            translateX(60px)
+            scale(0.85);
+    }
+
+    100% {
+        opacity: 1;
+
+        transform:
+            translateX(0)
+            scale(1);
+    }
+}
+
+
+/* =====================================================
+   WEBSITE UTAMA
+===================================================== */
+
+#main {
+    opacity: 0;
+
+    transform:
+        translateY(30px);
+
+    transition:
+        opacity 1.5s ease,
+        transform 1.5s ease;
+}
+
+#main.show {
+    opacity: 1;
+
+    transform:
+        translateY(0);
+}
+
+.container {
+    width: 90%;
+    max-width: 850px;
+
+    margin: auto;
+
+    padding:
+        70px 20px;
+
+    text-align: center;
+}
+
+
+/* =====================================================
+   HEART
+===================================================== */
+
+.heart {
+    font-size: 90px;
+
+    animation:
+        heartbeat 1.2s infinite;
+}
+
+@keyframes heartbeat {
+
+    0%,100% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.2);
+    }
+}
+
+
+/* =====================================================
+   JUDUL
+===================================================== */
+
+h1 {
+    font-size: 65px;
+
+    margin:
+        20px 0;
+
+    font-family:
+        "Brush Script MT",
+        "Segoe Script",
+        cursive;
+}
+
+.subtitle {
+    font-size: 28px;
+}
+
+
+/* =====================================================
+   FOTO UTAMA
+===================================================== */
+
+.photo-container {
+    margin-top: 30px;
+
+    display: flex;
+
+    justify-content: center;
+}
+
+.couple-photo {
+    width: 230px;
+    height: 230px;
+
+    object-fit: cover;
+
+    border-radius: 50%;
+
+    border:
+        5px solid
+        rgba(255,255,255,0.9);
+
+    box-shadow:
+        0 0 20px
+        rgba(120,210,255,0.9),
+
+        0 0 50px
+        rgba(50,150,255,0.7);
+}
+
+
+/* =====================================================
+   CARD
+===================================================== */
+
+.card {
+    margin-top: 40px;
+
+    padding:
+        35px 25px;
+
+    border-radius: 30px;
+
+    background:
+        rgba(255,255,255,0.15);
+
+    backdrop-filter:
+        blur(15px);
+
+    box-shadow:
+        0 15px 50px
+        rgba(0,0,0,0.25);
+}
+
+.names {
+    font-size: 38px;
+
+    font-weight: bold;
+
+    margin-bottom: 10px;
+}
+
+.date {
+    margin-top: 10px;
+
+    margin-bottom: 30px;
+
+    font-size: 22px;
+}
+
+
+/* =====================================================
+   COUNTER
+===================================================== */
+
+.counter {
+    display: grid;
+
+    grid-template-columns:
+        repeat(4,1fr);
+
+    gap: 12px;
+
+    margin-top: 20px;
+}
+
+.time-box {
+    padding:
+        20px 10px;
+
+    background:
+        rgba(255,255,255,0.18);
+
+    border-radius: 18px;
+}
+
+.number {
+    display: block;
+
+    font-size: 35px;
+
+    font-weight: bold;
+
+    font-family:
+        Arial,
+        sans-serif;
+}
+
+.label {
+    font-size: 13px;
+
+    font-family:
+        Arial,
+        sans-serif;
+}
+
+
+/* =====================================================
+   PESAN
+===================================================== */
+
+.message {
+    margin-top: 40px;
+
+    line-height: 1.8;
+
+    font-size: 20px;
+
+    min-height: 250px;
+}
+
+.message p {
+    min-height: 40px;
+
+    text-align: left;
+}
+
+
+/* =====================================================
+   PESAN RAHASIA
+===================================================== */
+
+.secret-button {
+    margin-top: 30px;
+
+    padding:
+        14px 28px;
+
+    border: none;
+
+    border-radius: 30px;
+
+    background: white;
+
+    color: #0878d1;
+
+    font-size: 18px;
+
+    font-family:
+        "Segoe Script",
+        "Brush Script MT",
+        cursive;
+
+    font-weight: bold;
+
+    cursor: pointer;
+
+    transition: 0.3s;
+}
+
+.secret-button:hover {
+    transform: scale(1.05);
+}
+
+#secret {
+    display: none;
+
+    margin-top: 25px;
+
+    font-size: 25px;
+
+    line-height: 1.7;
+}
+
+
+/* =====================================================
+   GALERI
+===================================================== */
+
+.gallery {
+    margin-top: 55px;
+}
+
+.gallery-title {
+    font-size: 34px;
+
+    margin-bottom: 25px;
+}
+
+.photo-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(2,1fr);
+
+    gap: 25px;
+
+    max-width: 750px;
+
+    margin: auto;
+}
+
+.gallery-frame {
+    padding: 7px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #123c66,
+            #17639a,
+            #0b3155
+        );
+
+    border-radius: 22px;
+
+    box-shadow:
+        0 8px 25px
+        rgba(0,0,0,0.45);
+}
+
+.gallery-frame img {
+    display: block;
+
+    width: 100%;
+    height: 250px;
+
+    object-fit: cover;
+
+    border-radius: 15px;
+
+    border:
+        2px solid
+        rgba(255,255,255,0.7);
+}
+
+
+/* =====================================================
+   KEMBANG API BUTTON
+===================================================== */
+
+.firework-section {
+    margin-top: 60px;
+
+    text-align: center;
+}
+
+.firework-button {
+    padding:
+        16px 30px;
+
+    border: none;
+
+    border-radius: 40px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #ffffff,
+            #d8f2ff
+        );
+
+    color: #075da8;
+
+    font-family:
+        "Segoe Script",
+        "Brush Script MT",
+        cursive;
+
+    font-size: 20px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 8px 30px
+        rgba(0,0,0,0.3);
+
+    transition: 0.3s;
+}
+
+.firework-button:hover {
+    transform: scale(1.08);
+}
+
+
+/* =====================================================
+   LAYAR KEMBANG API
+===================================================== */
+
+#fireworks {
+    position: fixed;
+
+    inset: 0;
+
+    z-index: 20000;
+
+    background:
+        radial-gradient(
+            circle,
+            #071f4d,
+            #010611
+        );
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    opacity: 0;
+
+    visibility: hidden;
+
+    transition:
+        opacity 1s ease;
+}
+
+#fireworks.show {
+    opacity: 1;
+
+    visibility: visible;
+}
+
+.firework-message {
+    position: relative;
+
+    z-index: 10;
+
+    width: 90%;
+
+    text-align: center;
+
+    font-family:
+        "Brush Script MT",
+        "Segoe Script",
+        cursive;
+
+    font-size:
+        clamp(45px,9vw,100px);
+
+    font-weight: bold;
+
+    color: white;
+
+    text-shadow:
+        0 0 10px #fff,
+        0 0 20px #4facfe,
+        0 0 40px #1687ff,
+        0 0 70px #1687ff;
+
+    min-height: 1.2em;
+}
+
+.firework-cursor {
+    display: inline-block;
+
+    width: 4px;
+
+    height: 1em;
+
+    background: white;
+
+    margin-left: 5px;
+
+    vertical-align: middle;
+
+    animation:
+        blink 0.6s infinite;
+}
+
+@keyframes blink {
+
+    0%,50% {
+        opacity: 1;
+    }
+
+    51%,100% {
+        opacity: 0;
+    }
+}
+
+
+/* =====================================================
+   KEMBANG API
+===================================================== */
+
+.firework {
+    position: absolute;
+
+    width: 5px;
+    height: 5px;
+
+    border-radius: 50%;
+
+    background: white;
+
+    box-shadow:
+        0 0 10px white,
+        0 0 20px #4facfe;
+
+    animation:
+        explode 1.8s ease-out forwards;
+}
+
+.firework::before,
+.firework::after {
+    content: "";
+
+    position: absolute;
+
+    left: 0;
+    top: 0;
+
+    width: 5px;
+    height: 5px;
+
+    border-radius: 50%;
+
+    box-shadow:
+        0 -70px 0 #4facfe,
+        35px -60px 0 #9bdcff,
+        60px -35px 0 #ffffff,
+        70px 0 0 #4facfe,
+        60px 35px 0 #9bdcff,
+        35px 60px 0 #ffffff,
+        0 70px 0 #4facfe,
+        -35px 60px 0 #9bdcff,
+        -60px 35px 0 #ffffff,
+        -70px 0 0 #4facfe,
+        -60px -35px 0 #9bdcff,
+        -35px -60px 0 #ffffff;
+}
+
+.firework::after {
+    transform:
+        rotate(22deg);
+}
+
+@keyframes explode {
+
+    0% {
+        transform:
+            scale(0.2);
+
+        opacity: 1;
+    }
+
+    60% {
+        transform:
+            scale(1);
+
+        opacity: 1;
+    }
+
+    100% {
+        transform:
+            scale(1.5);
+
+        opacity: 0;
+    }
+}
+
+
+/* =====================================================
+   SPARK
+===================================================== */
+
+.spark {
+    position: absolute;
+
+    width: 4px;
+    height: 4px;
+
+    border-radius: 50%;
+
+    background: white;
+
+    box-shadow:
+        0 0 10px #fff,
+        0 0 20px #4facfe;
+
+    animation:
+        sparkFall
+        1.8s
+        linear
+        forwards;
+}
+
+@keyframes sparkFall {
+
+    0% {
+        transform:
+            translate(0,0)
+            scale(1);
+
+        opacity: 1;
+    }
+
+    100% {
+        transform:
+            translate(
+                var(--x),
+                var(--y)
+            )
+            scale(0);
+
+        opacity: 0;
+    }
+}
+
+
+/* =====================================================
+   HATI TERBANG
+===================================================== */
+
+.floating-heart {
+    position: fixed;
+
+    bottom: -50px;
+
+    font-size: 25px;
+
+    animation:
+        float 6s linear;
+
+    pointer-events: none;
+
+    z-index: 3;
+}
+
+@keyframes float {
+
+    0% {
+        transform:
+            translateY(0)
+            rotate(0deg);
+
+        opacity: 0;
+    }
+
+    20% {
+        opacity: 1;
+    }
+
+    100% {
+        transform:
+            translateY(-110vh)
+            rotate(360deg);
+
+        opacity: 0;
+    }
+}
+
+
+/* =====================================================
+   BUNGA JATUH
+===================================================== */
+
+.falling-flower {
+    position: fixed;
+
+    top: -60px;
+
+    z-index: 21000;
+
+    pointer-events: none;
+
+    color: #9bdcff;
+
+    text-shadow:
+        0 0 8px white,
+        0 0 15px #4facfe;
+
+    animation:
+        flowerFall
+        linear
+        forwards;
+}
+
+@keyframes flowerFall {
+
+    0% {
+        transform:
+            translateY(-50px)
+            translateX(0)
+            rotate(0deg);
+
+        opacity: 0;
+    }
+
+    10% {
+        opacity: 1;
+    }
+
+    50% {
+        transform:
+            translateY(50vh)
+            translateX(50px)
+            rotate(180deg);
+    }
+
+    100% {
+        transform:
+            translateY(110vh)
+            translateX(-50px)
+            rotate(360deg);
+
+        opacity: 0;
+    }
+}
+
+
+/* =====================================================
+   FOOTER
+===================================================== */
+
+footer {
+    margin-top: 50px;
+
+    padding-bottom: 30px;
+
+    opacity: 0.7;
+
+    font-size: 18px;
+}
+
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media (max-width:600px) {
+
+    h1 {
+        font-size: 45px;
+    }
+
+    .subtitle {
+        font-size: 24px;
+    }
+
+    .counter {
+        grid-template-columns:
+            repeat(2,1fr);
+    }
+
+    .intro-title {
+        font-size: 35px;
+    }
+
+    .keypad {
+        grid-template-columns:
+            repeat(3,70px);
+    }
+
+    .key {
+        width: 70px;
+        height: 70px;
+    }
+
+    .couple-photo {
+        width: 190px;
+        height: 190px;
+    }
+
+    .names {
+        font-size: 30px;
+    }
+
+    .message {
+        font-size: 18px;
+    }
+
+    .memory-photo {
+        flex:
+            0 0 250px;
+
+        width: 250px;
+    }
+
+    .memory-photo img {
+        height: 300px;
+    }
+
+    .photo-show-title {
+        font-size: 27px;
+    }
+
+    .photo-grid {
+        grid-template-columns:
+            1fr;
+    }
+
+    .question {
+        font-size: 28px;
+    }
+}
+
+</style>
+</head>
+
+
+<body>
+
+
+<!-- =====================================================
+     MUSIK
+===================================================== -->
+
+<audio id="music" loop>
+
+    <source
+        src="musik.mp3"
+        type="audio/mpeg">
+
+</audio>
+
+
+<!-- =====================================================
+     LAYAR PIN
+===================================================== -->
+
+<div id="lockScreen">
+
+    <div class="lock-container">
+
+        <div class="lock-icon">
+            🔒
+        </div>
+
+        <div class="lock-date">
+            18 Februari 2026
+        </div>
+
+        <div class="lock-title">
+            Masukkan PIN ❤️
+        </div>
+
+
+        <div class="pin-dots">
+
+            <span class="pin-dot" id="dot1"></span>
+            <span class="pin-dot" id="dot2"></span>
+            <span class="pin-dot" id="dot3"></span>
+            <span class="pin-dot" id="dot4"></span>
+            <span class="pin-dot" id="dot5"></span>
+            <span class="pin-dot" id="dot6"></span>
+            <span class="pin-dot" id="dot7"></span>
+            <span class="pin-dot" id="dot8"></span>
+
+        </div>
+
+
+        <div class="keypad">
+
+            <button class="key"
+                onclick="pressNumber('1')">1</button>
+
+            <button class="key"
+                onclick="pressNumber('2')">2</button>
+
+            <button class="key"
+                onclick="pressNumber('3')">3</button>
+
+            <button class="key"
+                onclick="pressNumber('4')">4</button>
+
+            <button class="key"
+                onclick="pressNumber('5')">5</button>
+
+            <button class="key"
+                onclick="pressNumber('6')">6</button>
+
+            <button class="key"
+                onclick="pressNumber('7')">7</button>
+
+            <button class="key"
+                onclick="pressNumber('8')">8</button>
+
+            <button class="key"
+                onclick="pressNumber('9')">9</button>
+
+            <button class="key special"
+                onclick="clearPin()">✕</button>
+
+            <button class="key"
+                onclick="pressNumber('0')">0</button>
+
+            <button class="key special"
+                onclick="deleteNumber()">⌫</button>
+
+        </div>
+
+
+        <div id="pinError">
+            ❌ PIN salah ❤️
+        </div>
+
+
+        <div id="pinClue">
+
+            <div class="clue-title">
+                💡 Clue
+            </div>
+
+            <div
+                class="clue-text"
+                id="clueText">
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     INTRO
+===================================================== -->
+
+<div id="intro">
+
+    <div class="intro-content">
+
+        <div class="intro-heart">
+            ❤️
+        </div>
+
+        <h1 class="intro-title">
+            Ada sesuatu untukmu...
+        </h1>
+
+        <p class="intro-text">
+            Sebelum melihat pesan ini,
+            dengarkan dulu musiknya ❤️
+        </p>
+
+        <button
+            class="start-button"
+            onclick="startExperience()">
+
+            💖 Mulai
+
+        </button>
+
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     QUIZ MATEMATIKA
+===================================================== -->
+
+<div id="gameScreen">
+
+    <div class="game-box">
+
+        <div class="game-title">
+            🧮 Quiz Matematika ❤️
+        </div>
+
+        <div class="game-description">
+            Jawab semua soal dengan benar
+            <br>
+            untuk membuka kenangan kita 💕
+        </div>
+
+
+        <div
+            class="quiz-progress"
+            id="quizProgress">
+
+            Soal 1 / 5
+
+        </div>
+
+
+        <div
+            class="question"
+            id="question">
+
+            5 + 5 = ?
+
+        </div>
+
+
+        <input
+            type="number"
+            id="answerInput"
+            class="answer-input"
+            placeholder="Jawaban">
+
+
+        <br>
+
+
+        <button
+            class="answer-button"
+            onclick="checkAnswer()">
+
+            💕 Jawab
+
+        </button>
+
+
+        <div
+            class="quiz-message"
+            id="quizMessage">
+        </div>
+
+
+        <div
+            id="quizScore"
+            style="
+                font-family:Arial;
+                margin-top:10px;
+            ">
+
+            Benar: 0 / 5
+
+        </div>
+
+
+        <button
+            id="gameNextButton"
+            class="game-button"
+            onclick="finishGame()"
+            style="display:none;">
+
+            💕 Lanjut ke Kenangan
+
+        </button>
+
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     ALBUM FOTO
+===================================================== -->
+
+<div id="photoShow">
+
+    <div class="photo-show-content">
+
+        <div class="photo-show-title">
+            Untuk Hafid & Latifah ❤️
+        </div>
+
+        <div
+            class="photo-list"
+            id="photoList">
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     WEBSITE UTAMA
+===================================================== -->
+
+<div id="main">
+
+    <div class="container">
+
+        <div class="heart">
+            ❤️
+        </div>
+
+        <h1>
+            Happy Anniversary
+        </h1>
+
+        <div class="subtitle">
+            Hafid ❤️ Latifah
+        </div>
+
+
+        <div class="photo-container">
+
+            <img
+                src="foto.jpg"
+                alt="Hafid dan Latifah"
+                class="couple-photo">
+
+        </div>
+
+
+        <div class="card">
+
+            <div class="names">
+                Hafid ❤️ Latifah
+            </div>
+
+            <div class="date">
+                Bersama sejak
+                18 Februari 2026
+            </div>
+
+
+            <h2>
+                ⏳ Waktu yang sudah kita lalui
+            </h2>
+
+
+            <div class="counter">
+
+                <div class="time-box">
+
+                    <span
+                        class="number"
+                        id="years">
+                        0
+                    </span>
+
+                    <span class="label">
+                        TAHUN
+                    </span>
+
+                </div>
+
+
+                <div class="time-box">
+
+                    <span
+                        class="number"
+                        id="months">
+                        0
+                    </span>
+
+                    <span class="label">
+                        BULAN
+                    </span>
+
+                </div>
+
+
+                <div class="time-box">
+
+                    <span
+                        class="number"
+                        id="days">
+                        0
+                    </span>
+
+                    <span class="label">
+                        HARI
+                    </span>
+
+                </div>
+
+
+                <div class="time-box">
+
+                    <span
+                        class="number"
+                        id="hours">
+                        0
+                    </span>
+
+                    <span class="label">
+                        JAM
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <!-- UCAPAN -->
+
+            <div class="message">
+
+                <p id="message1"></p>
+
+                <br>
+
+                <p id="message2"></p>
+
+            </div>
+
+
+            <!-- PESAN RAHASIA -->
+
+            <button
+                class="secret-button"
+                onclick="showSecret()">
+
+                💌 Buka Pesan Rahasia
+
+            </button>
+
+
+            <div id="secret">
+
+                Kamu adalah salah satu alasan
+                kenapa hari-hariku terasa lebih
+                indah. ❤️
+
+                <br><br>
+
+                <b>
+                    Aku sayang kamu.
+
+                    Hari ini, besok,
+                    dan seterusnya. 💖
+                </b>
+
+            </div>
+
+        </div>
+
+
+        <!-- =================================================
+             GALERI
+        ================================================= -->
+
+        <div class="gallery">
+
+            <div class="gallery-title">
+                📸 Kenangan Kita ❤️
+            </div>
+
+
+            <div class="photo-grid">
+
+                <div class="gallery-frame">
+                    <img src="foto1.jpg">
+                </div>
+
+                <div class="gallery-frame">
+                    <img src="foto2.jpg">
+                </div>
+
+                <div class="gallery-frame">
+                    <img src="foto3.jpg">
+                </div>
+
+                <div class="gallery-frame">
+                    <img src="foto4.jpg">
+                </div>
+
+                <div class="gallery-frame">
+                    <img src="foto5.jpg">
+                </div>
+
+                <div class="gallery-frame">
+                    <img src="foto6.jpg">
+                </div>
+
+                <div class="gallery-frame">
+                    <img src="foto7.jpg">
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- =================================================
+             KEMBANG API
+        ================================================= -->
+
+        <div class="firework-section">
+
+            <button
+                class="firework-button"
+                onclick="showFireworks()">
+
+                🎆 Lihat Kembang Api ❤️
+
+            </button>
+
+        </div>
+
+
+        <footer>
+
+            Made with ❤️
+            for Hafid & Latifah
+
+        </footer>
+
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     KEMBANG API
+===================================================== -->
+
+<div id="fireworks">
+
+    <div
+        class="firework-message"
+        id="fireworkMessage">
+    </div>
+
+</div>
+
+
+<script>
+
+/* =====================================================
+   PIN
+===================================================== */
+
+const correctPin = "18022026";
+
+let enteredPin = "";
+
+let pinWrongCount = 0;
+
+
+function pressNumber(number) {
+
+    if (enteredPin.length >= 8) {
+        return;
+    }
+
+
+    enteredPin += number;
+
+    updateDots();
+
+
+    const buttons =
+        document.querySelectorAll(".key");
+
+
+    buttons.forEach(button => {
+
+        if (
+            button.textContent.trim()
+            === number
+        ) {
+
+            button.classList.add(
+                "pressed"
+            );
+
+
+            setTimeout(() => {
+
+                button.classList.remove(
+                    "pressed"
+                );
+
+            },150);
+
+        }
+
+    });
+
+
+    if (enteredPin.length === 8) {
+
+        setTimeout(
+            checkPin,
+            250
+        );
+
+    }
+
+}
+
+
+function updateDots() {
+
+    for (
+        let i = 1;
+        i <= 8;
+        i++
+    ) {
+
+        const dot =
+            document.getElementById(
+                "dot" + i
+            );
+
+
+        if (
+            i <= enteredPin.length
+        ) {
+
+            dot.classList.add(
+                "active"
+            );
+
+        } else {
+
+            dot.classList.remove(
+                "active"
+            );
+
+        }
+
+    }
+
+}
+
+
+function deleteNumber() {
+
+    enteredPin =
+        enteredPin.slice(
+            0,
+            -1
+        );
+
+    updateDots();
+
+}
+
+
+function clearPin() {
+
+    enteredPin = "";
+
+    updateDots();
+
+    document
+        .getElementById(
+            "pinError"
+        )
+        .classList.remove(
+            "show"
+        );
+
+}
+
+
+function showPinClue() {
+
+    const clue =
+        document.getElementById(
+            "pinClue"
+        );
+
+
+    const clueText =
+        document.getElementById(
+            "clueText"
+        );
+
+
+    let message = "";
+
+
+    if (pinWrongCount === 1) {
+
+        message =
+            "📅 Hari jadian kita adalah <b>18</b>.";
+
+    }
+
+    else if (pinWrongCount === 2) {
+
+        message =
+            "📅 Bulan jadian kita adalah <b>Februari</b>.";
+
+    }
+
+    else {
+
+        message =
+            "❤️ Tahun jadian kita adalah <b>2026</b>.";
+
+    }
+
+
+    clueText.innerHTML =
+        message;
+
+
+    clue.classList.remove(
+        "show"
+    );
+
+
+    setTimeout(() => {
+
+        clue.classList.add(
+            "show"
+        );
+
+    },100);
+
+}
+
+
+function checkPin() {
+
+    const error =
+        document.getElementById(
+            "pinError"
+        );
+
+
+    const lock =
+        document.getElementById(
+            "lockScreen"
+        );
+
+
+    const dots =
+        document.querySelector(
+            ".pin-dots"
+        );
+
+
+    if (
+        enteredPin === correctPin
+    ) {
+
+        error.classList.remove(
+            "show"
+        );
+
+
+        dots.classList.add(
+            "pin-success"
+        );
+
+
+        document
+            .querySelectorAll(
+                ".pin-dot"
+            )
+            .forEach(dot => {
+
+                dot.style.background =
+                    "#ffffff";
+
+                dot.style.boxShadow =
+                    "0 0 10px #fff, 0 0 30px #4facfe";
+
+            });
+
+
+        setTimeout(() => {
+
+            lock.classList.add(
+                "hide"
+            );
+
+        },700);
+
+
+        setTimeout(() => {
+
+            document
+                .getElementById(
+                    "intro"
+                )
+                .classList.add(
+                    "show"
+                );
+
+        },1400);
+
+
+        return;
+    }
+
+
+    pinWrongCount++;
+
+
+    error.classList.add(
+        "show"
+    );
+
+
+    lock.classList.remove(
+        "pin-wrong"
+    );
+
+
+    void lock.offsetWidth;
+
+
+    lock.classList.add(
+        "pin-wrong"
+    );
+
+
+    showPinClue();
+
+
+    setTimeout(() => {
+
+        enteredPin = "";
+
+        updateDots();
+
+    },500);
+
+}
+
+
+/* =====================================================
+   MULAI EXPERIENCE
+===================================================== */
+
+function startExperience() {
+
+    const music =
+        document.getElementById(
+            "music"
+        );
+
+
+    music.play().catch(
+        error => {
+
+            console.log(
+                "Musik gagal:",
+                error
+            );
+
+        }
+    );
+
+
+    document
+        .getElementById(
+            "intro"
+        )
+        .classList.remove(
+            "show"
+        );
+
+
+    document
+        .getElementById(
+            "intro"
+        )
+        .classList.add(
+            "hide"
+        );
+
+
+    setTimeout(() => {
+
+        document
+            .getElementById(
+                "gameScreen"
+            )
+            .classList.add(
+                "show"
+            );
+
+
+        generateQuestion();
+
+    },1000);
+
+}
+
+
+/* =====================================================
+   QUIZ MATEMATIKA
+===================================================== */
+
+const totalQuestions = 5;
+
+let currentQuestion = 0;
+
+let correctAnswers = 0;
+
+let answer = 0;
+
+
+function generateQuestion() {
+
+    if (
+        currentQuestion >=
+        totalQuestions
+    ) {
+
+        finishQuiz();
+
+        return;
+    }
+
+
+    const operations = [
+        "+",
+        "-",
+        "×"
+    ];
+
+
+    const operation =
+        operations[
+            Math.floor(
+                Math.random()
+                *
+                operations.length
+            )
+        ];
+
+
+    let a;
+    let b;
+
+
+    if (operation === "+") {
+
+        a =
+            Math.floor(
+                Math.random() * 20
+            ) + 1;
+
+        b =
+            Math.floor(
+                Math.random() * 20
+            ) + 1;
+
+        answer = a + b;
+
+    }
+
+
+    else if (operation === "-") {
+
+        a =
+            Math.floor(
+                Math.random() * 20
+            ) + 10;
+
+        b =
+            Math.floor(
+                Math.random() * 10
+            ) + 1;
+
+        answer = a - b;
+
+    }
+
+
+    else {
+
+        a =
+            Math.floor(
+                Math.random() * 10
+            ) + 1;
+
+        b =
+            Math.floor(
+                Math.random() * 10
+            ) + 1;
+
+        answer = a * b;
+
+    }
+
+
+    document
+        .getElementById(
+            "question"
+        )
+        .textContent =
+        `${a} ${operation} ${b} = ?`;
+
+
+    document
+        .getElementById(
+            "quizProgress"
+        )
+        .textContent =
+        `Soal ${currentQuestion + 1} / ${totalQuestions}`;
+
+
+    document
+        .getElementById(
+            "answerInput"
+        )
+        .value = "";
+
+
+    document
+        .getElementById(
+            "quizMessage"
+        )
+        .textContent = "";
+
+
+    document
+        .getElementById(
+            "answerInput"
+        )
+        .focus();
+
+}
+
+
+function checkAnswer() {
+
+    const input =
+        document.getElementById(
+            "answerInput"
+        );
+
+
+    const message =
+        document.getElementById(
+            "quizMessage"
+        );
+
+
+    const userAnswer =
+        Number(input.value);
+
+
+    if (
+        input.value === ""
+    ) {
+
+        message.textContent =
+            "Masukkan jawaban dulu ❤️";
+
+        return;
+    }
+
+
+    if (
+        userAnswer === answer
+    ) {
+
+        correctAnswers++;
+
+
+        message.textContent =
+            "🎉 Benar! Hebat ❤️";
+
+    }
+
+    else {
+
+        message.textContent =
+            `❌ Salah. Jawaban yang benar adalah ${answer}`;
+
+    }
+
+
+    currentQuestion++;
+
+
+    document
+        .getElementById(
+            "quizScore"
+        )
+        .textContent =
+        `Benar: ${correctAnswers} / ${totalQuestions}`;
+
+
+    setTimeout(() => {
+
+        generateQuestion();
+
+    },1000);
+
+}
+
+
+function finishQuiz() {
+
+    document
+        .getElementById(
+            "question"
+        )
+        .textContent =
+        "🎉 Quiz selesai! ❤️";
+
+
+    document
+        .getElementById(
+            "quizProgress"
+        )
+        .textContent =
+        `Kamu benar ${correctAnswers} dari ${totalQuestions} soal`;
+
+
+    document
+        .getElementById(
+            "answerInput"
+        )
+        .style.display =
+        "none";
+
+
+    document
+        .querySelector(
+            ".answer-button"
+        )
+        .style.display =
+        "none";
+
+
+    document
+        .getElementById(
+            "quizMessage"
+        )
+        .textContent =
+        "Sekarang waktunya melihat kenangan kita 💕";
+
+
+    document
+        .getElementById(
+            "gameNextButton"
+        )
+        .style.display =
+        "inline-block";
+
+}
+
+
+/* Enter untuk menjawab */
+
+document
+    .getElementById(
+        "answerInput"
+    )
+    .addEventListener(
+        "keydown",
+        function(event) {
+
+            if (
+                event.key === "Enter"
+            ) {
+
+                checkAnswer();
+
+            }
+
+        }
+    );
+
+
+/* =====================================================
+   SELESAI QUIZ
+===================================================== */
+
+function finishGame() {
+
+    document
+        .getElementById(
+            "gameScreen"
+        )
+        .classList.remove(
+            "show"
+        );
+
+
+    setTimeout(() => {
+
+        startPhotoAlbum();
+
+    },1000);
+
+}
+
+
+/* =====================================================
+   ALBUM FOTO
+===================================================== */
+
+const photos = [
+
+    "foto1.jpg",
+    "foto2.jpg",
+    "foto3.jpg",
+    "foto4.jpg",
+    "foto5.jpg",
+    "foto6.jpg",
+    "foto7.jpg"
+
+];
+
+
+const captions = [
+
+    "Kenangan pertama ❤️",
+
+    "Momen yang selalu aku ingat 💙",
+
+    "Senyummu selalu indah ❤️",
+
+    "Terima kasih sudah bersamaku 💕",
+
+    "Banyak cerita yang kita lalui 💖",
+
+    "Semoga kita selalu bersama ✨",
+
+    "Dan masih banyak cerita lainnya ❤️"
+
+];
+
+
+let photoIndex = 0;
+
+const photoDelay = 3500;
+
+
+function startPhotoAlbum() {
+
+    document
+        .getElementById(
+            "photoShow"
+        )
+        .classList.add(
+            "show"
+        );
+
+
+    photoIndex = 0;
+
+
+    document
+        .getElementById(
+            "photoList"
+        )
+        .innerHTML = "";
+
+
+    showNextPhoto();
+
+}
+
+
+function showNextPhoto() {
+
+    if (
+        photoIndex >=
+        photos.length
+    ) {
+
+        finishPhotoAlbum();
+
+        return;
+
+    }
+
+
+    const photoList =
+        document.getElementById(
+            "photoList"
+        );
+
+
+    const frame =
+        document.createElement(
+            "div"
+        );
+
+
+    frame.className =
+        "memory-photo";
+
+
+    const image =
+        document.createElement(
+            "img"
+        );
+
+
+    image.src =
+        photos[photoIndex];
+
+
+    image.alt =
+        "Kenangan Hafid dan Latifah";
+
+
+    const caption =
+        document.createElement(
+            "div"
+        );
+
+
+    caption.className =
+        "memory-caption";
+
+
+    caption.textContent =
+        captions[photoIndex];
+
+
+    frame.appendChild(
+        image
+    );
+
+    frame.appendChild(
+        caption
+    );
+
+
+    photoList.appendChild(
+        frame
+    );
+
+
+    setTimeout(() => {
+
+        const photoShow =
+            document.getElementById(
+                "photoShow"
+            );
+
+
+        photoShow.scrollTo({
+
+            left:
+                photoShow.scrollWidth,
+
+            behavior:
+                "smooth"
+
+        });
+
+    },300);
+
+
+    photoIndex++;
+
+
+    setTimeout(
+        showNextPhoto,
+        photoDelay
+    );
+
+}
+
+
+/* =====================================================
+   SELESAI ALBUM
+===================================================== */
+
+function finishPhotoAlbum() {
+
+    setTimeout(() => {
+
+        const photoShow =
+            document.getElementById(
+                "photoShow"
+            );
+
+
+        const main =
+            document.getElementById(
+                "main"
+            );
+
+
+        photoShow.style.opacity =
+            "0";
+
+
+        setTimeout(() => {
+
+            photoShow.style.visibility =
+                "hidden";
+
+
+            main.classList.add(
+                "show"
+            );
+
+
+            window.scrollTo({
+
+                top: 0,
+
+                behavior: "smooth"
+
+            });
+
+
+            startTypingMessages();
+
+        },1000);
+
+    },3000);
+
+}
+
+
+/* =====================================================
+   COUNTER
+===================================================== */
+
+const startDate =
+    new Date(
+        2026,
+        1,
+        18
+    );
+
+
+function updateCounter() {
+
+    const now =
+        new Date();
+
+
+    let years =
+        now.getFullYear()
+        -
+        startDate.getFullYear();
+
+
+    let months =
+        now.getMonth()
+        -
+        startDate.getMonth();
+
+
+    let days =
+        now.getDate()
+        -
+        startDate.getDate();
+
+
+    let hours =
+        now.getHours()
+        -
+        startDate.getHours();
+
+
+    if (hours < 0) {
+
+        hours += 24;
+
+        days--;
+
+    }
+
+
+    if (days < 0) {
+
+        const previousMonth =
+            new Date(
+                now.getFullYear(),
+                now.getMonth(),
+                0
+            ).getDate();
+
+
+        days += previousMonth;
+
+        months--;
+
+    }
+
+
+    if (months < 0) {
+
+        months += 12;
+
+        years--;
+
+    }
+
+
+    document
+        .getElementById(
+            "years"
+        )
+        .textContent =
+        years;
+
+
+    document
+        .getElementById(
+            "months"
+        )
+        .textContent =
+        months;
+
+
+    document
+        .getElementById(
+            "days"
+        )
+        .textContent =
+        days;
+
+
+    document
+        .getElementById(
+            "hours"
+        )
+        .textContent =
+        hours;
+
+}
+
+
+updateCounter();
+
+setInterval(
+    updateCounter,
+    1000
+);
+
+
+/* =====================================================
+   UCAPAN
+===================================================== */
+
+const text1 =
+`Happy Anniversary, Latifah ❤️
+
+Hari ini bukan hanya tentang bertambahnya waktu kita bersama, tapi tentang semua cerita, tawa, perjuangan, dan kenangan yang sudah kita lewati berdua.
+
+Terima kasih karena sudah hadir di hidupku. Terima kasih sudah menjadi seseorang yang selalu membuat hari-hariku terasa lebih indah. Mungkin hubungan kita tidak selalu sempurna, tapi aku selalu ingin belajar menjadi lebih baik untukmu.
+
+Aku tidak tahu seperti apa perjalanan kita ke depannya, tapi satu hal yang aku tahu, aku ingin terus menjalaninya bersamamu.
+
+Semoga kita tetap saling menggenggam ketika keadaan sulit, tetap saling memilih ketika ada masalah, dan tetap saling mencintai meskipun waktu terus berjalan.
+
+Latifah, aku sayang kamu. ❤️
+
+Terima kasih sudah menjadi bagian terindah dalam hidupku.
+
+Happy Anniversary, sayang. 💙
+
+I Love You, Latifah. ❤️
+Hari ini, besok, dan seterusnya. 💕`;
+
+
+const text2 =
+`Aku mungkin tidak bisa menjanjikan semuanya
+akan selalu sempurna.
+
+Tapi aku ingin terus berjalan bersamamu
+dan membuat lebih banyak kenangan indah. ❤️`;
+
+
+function typeText(
+    elementId,
+    text,
+    speed = 45,
+    callback = null
+) {
+
+    const element =
+        document.getElementById(
+            elementId
+        );
+
+
+    let index = 0;
+
+    element.innerHTML = "";
+
+
+    function type() {
+
+        if (
+            index < text.length
+        ) {
+
+            if (
+                text[index] === "\n"
+            ) {
+
+                element.innerHTML +=
+                    "<br>";
+
+            }
+
+            else {
+
+                element.innerHTML +=
+                    text[index];
+
+            }
+
+
+            index++;
+
+
+            setTimeout(
+                type,
+                speed
+            );
+
+        }
+
+        else {
+
+            if (callback) {
+
+                callback();
+
+            }
+
+        }
+
+    }
+
+
+    type();
+
+}
+
+
+function startTypingMessages() {
+
+    setTimeout(() => {
+
+        typeText(
+
+            "message1",
+
+            text1,
+
+            45,
+
+            () => {
+
+                setTimeout(() => {
+
+                    typeText(
+
+                        "message2",
+
+                        text2,
+
+                        45
+
+                    );
+
+                },800);
+
+            }
+
+        );
+
+    },1200);
+
+}
+
+
+/* =====================================================
+   PESAN RAHASIA
+===================================================== */
+
+function showSecret() {
+
+    const secret =
+        document.getElementById(
+            "secret"
+        );
+
+
+    if (
+        secret.style.display ===
+        "block"
+    ) {
+
+        secret.style.display =
+            "none";
+
+    }
+
+    else {
+
+        secret.style.display =
+            "block";
+
+    }
+
+}
+
+
+/* =====================================================
+   HATI TERBANG
+===================================================== */
+
+function createHeart() {
+
+    const heart =
+        document.createElement(
+            "div"
+        );
+
+
+    heart.classList.add(
+        "floating-heart"
+    );
+
+
+    const hearts = [
+
+        "❤️",
+        "💖",
+        "💕",
+        "💗",
+        "💓"
+
+    ];
+
+
+    heart.innerHTML =
+        hearts[
+            Math.floor(
+                Math.random()
+                *
+                hearts.length
+            )
+        ];
+
+
+    heart.style.left =
+        Math.random() *
+        100 +
+        "vw";
+
+
+    heart.style.fontSize =
+        (
+            15 +
+            Math.random() *
+            25
+        ) +
+        "px";
+
+
+    heart.style.animationDuration =
+        (
+            4 +
+            Math.random() *
+            5
+        ) +
+        "s";
+
+
+    document.body.appendChild(
+        heart
+    );
+
+
+    setTimeout(() => {
+
+        heart.remove();
+
+    },9000);
+
+}
+
+
+setInterval(
+    createHeart,
+    700
+);
+
+
+/* =====================================================
+   BUNGA JATUH
+===================================================== */
+
+function createFlower() {
+
+    const flower =
+        document.createElement(
+            "div"
+        );
+
+
+    flower.classList.add(
+        "falling-flower"
+    );
+
+
+    const flowers = [
+
+        "❀",
+        "✿",
+        "✾",
+        "❁",
+        "✽",
+        "🌸"
+
+    ];
+
+
+    flower.innerHTML =
+        flowers[
+            Math.floor(
+                Math.random()
+                *
+                flowers.length
+            )
+        ];
+
+
+    flower.style.left =
+        Math.random() *
+        100 +
+        "vw";
+
+
+    flower.style.fontSize =
+        (
+            15 +
+            Math.random() *
+            25
+        ) +
+        "px";
+
+
+    flower.style.animationDuration =
+        (
+            5 +
+            Math.random() *
+            6
+        ) +
+        "s";
+
+
+    document.body.appendChild(
+        flower
+    );
+
+
+    setTimeout(() => {
+
+        flower.remove();
+
+    },12000);
+
+}
+
+
+/*
+   Bunga dibuat terus menerus.
+
+   Karena z-index bunga = 21000,
+   bunga akan terlihat di atas album foto.
+*/
+
+setInterval(
+    createFlower,
+    400
+);
+
+
+/* =====================================================
+   KEMBANG API
+===================================================== */
+
+function createFirework() {
+
+    const container =
+        document.getElementById(
+            "fireworks"
+        );
+
+
+    const firework =
+        document.createElement(
+            "div"
+        );
+
+
+    firework.className =
+        "firework";
+
+
+    firework.style.left =
+        (
+            10 +
+            Math.random() * 80
+        ) +
+        "vw";
+
+
+    firework.style.top =
+        (
+            10 +
+            Math.random() * 65
+        ) +
+        "vh";
+
+
+    container.appendChild(
+        firework
+    );
+
+
+    setTimeout(() => {
+
+        firework.remove();
+
+    },2000);
+
+}
+
+
+/* =====================================================
+   PARTIKEL
+===================================================== */
+
+function createSparks() {
+
+    const container =
+        document.getElementById(
+            "fireworks"
+        );
+
+
+    const centerX =
+        20 +
+        Math.random() * 60;
+
+
+    const centerY =
+        15 +
+        Math.random() * 60;
+
+
+    for (
+        let i = 0;
+        i < 30;
+        i++
+    ) {
+
+        const spark =
+            document.createElement(
+                "div"
+            );
+
+
+        spark.className =
+            "spark";
+
+
+        spark.style.left =
+            centerX + "vw";
+
+
+        spark.style.top =
+            centerY + "vh";
+
+
+        const angle =
+            Math.random()
+            *
+            Math.PI
+            *
+            2;
+
+
+        const distance =
+            50 +
+            Math.random() *
+            150;
+
+
+        spark.style.setProperty(
+
+            "--x",
+
+            Math.cos(angle)
+            *
+            distance
+            +
+            "px"
+
+        );
+
+
+        spark.style.setProperty(
+
+            "--y",
+
+            Math.sin(angle)
+            *
+            distance
+            +
+            "px"
+
+        );
+
+
+        container.appendChild(
+            spark
+        );
+
+
+        setTimeout(() => {
+
+            spark.remove();
+
+        },2000);
+
+    }
+
+}
+
+
+/* =====================================================
+   TEKS I LOVE YOU
+===================================================== */
+
+function typeFireworkMessage() {
+
+    const element =
+        document.getElementById(
+            "fireworkMessage"
+        );
+
+
+    const text =
+        "I LOVE YOU LATIFAH ❤️";
+
+
+    let index = 0;
+
+
+    element.innerHTML = "";
+
+
+    const cursor =
+        document.createElement(
+            "span"
+        );
+
+
+    cursor.className =
+        "firework-cursor";
+
+
+    element.appendChild(
+        cursor
+    );
+
+
+    function type() {
+
+        if (
+            index < text.length
+        ) {
+
+            const character =
+                text[index];
+
+
+            const textNode =
+                document.createTextNode(
+                    character
+                );
+
+
+            element.insertBefore(
+                textNode,
+                cursor
+            );
+
+
+            index++;
+
+
+            setTimeout(
+                type,
+                120
+            );
+
+        }
+
+    }
+
+
+    type();
+
+}
+
+
+/* =====================================================
+   TAMPILKAN KEMBANG API
+===================================================== */
+
+let fireworksRunning =
+    false;
+
+
+function showFireworks() {
+
+    const screen =
+        document.getElementById(
+            "fireworks"
+        );
+
+
+    screen.classList.add(
+        "show"
+    );
+
+
+    fireworksRunning =
+        true;
+
+
+    typeFireworkMessage();
+
+
+    createFirework();
+
+    createSparks();
+
+
+    const interval =
+        setInterval(() => {
+
+            if (
+                !fireworksRunning
+            ) {
+
+                clearInterval(
+                    interval
+                );
+
+                return;
+
+            }
+
+
+            createFirework();
+
+            createSparks();
+
+        },700);
+
+
+    setTimeout(() => {
+
+        fireworksRunning =
+            false;
+
+    },25000);
+
+}
+
+
+/* =====================================================
+   KLIK LAYAR KEMBANG API
+===================================================== */
+
+document
+    .getElementById(
+        "fireworks"
+    )
+    .addEventListener(
+        "click",
+        function(event) {
+
+            if (
+                event.target ===
+                this
+            ) {
+
+                createFirework();
+
+                createSparks();
+
+            }
+
+        }
+    );
+
+</script>
+
+</body>
+</html>
